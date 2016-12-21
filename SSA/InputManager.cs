@@ -16,23 +16,24 @@ namespace SSA
         public void Subscribe()
         {
             m_GlobalHook = Hook.GlobalEvents();
-
+            //create event handlers
             m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
             m_GlobalHook.KeyPress += GlobalHookKeyPress;
         }
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
-            //DO SOMETHING
+            //DO SOMETHING ON KEY PRESS
         }
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
         {
-            //DO SOMETHING
+            //DO SOMETHING ON MOUSE CLICK
         }
 
         public void Unsubscribe()
         {
+            //remove event handlers
             m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
             m_GlobalHook.KeyPress -= GlobalHookKeyPress;
 
