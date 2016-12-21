@@ -12,7 +12,7 @@ namespace SSA
     {
         static void Main(string[] args)
         {
-            /*TESTING PURPOSES
+            /*//TESTING PURPOSES//
             InputManager im = new InputManager();
             im.Subscribe();
             ScreenManager sm = new ScreenManager();
