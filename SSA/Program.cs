@@ -12,14 +12,6 @@ namespace SSA
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Old Volume");
-            Console.ReadLine();
-            using (new MaximumVolume())
-            {
-                Console.WriteLine("MAX Volume");
-                Console.ReadLine();
-            }
-            Console.WriteLine("Old Volume");
         }
     }
 }
