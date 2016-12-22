@@ -12,14 +12,14 @@ namespace SSA
     {
         static void Main(string[] args)
         {
-            /*//TESTING PURPOSES//
+            //TESTING PURPOSES//
             InputManager im = new InputManager();
             im.Subscribe();
             ScreenManager sm = new ScreenManager();
             Form form = new Form();
             form.BackgroundImage = sm.getScreenshot();
             form.Size = new Size(500, 500);
-            form.ShowDialog();*/
+            form.ShowDialog();
 
         }
     }
