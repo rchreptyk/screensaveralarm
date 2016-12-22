@@ -1,37 +1,26 @@
 ﻿using Gma.System.MouseKeyHook;
 using System;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SSA
 {
-    class InputManager
+    class Mouse
     {
-
+        public event EventHandler MouseMoved;
         private IKeyboardMouseEvents m_GlobalHook;
         private int initialXMouseLocation;
         private int initialYMouseLocation;
         private bool isLocationSet;
 
-        public InputManager()
-        {
-            m_GlobalHook = null;
-            initialXMouseLocation = 0;
-            initialYMouseLocation = 0;
-            isLocationSet = false;
-    }
-
-        public void Subscribe()
+        public Mouse()
         {
             m_GlobalHook = Hook.GlobalEvents();
             //create event handlers
             m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
-            m_GlobalHook.KeyPress += GlobalHookKeyPress;
             m_GlobalHook.MouseMoveExt += GlobalHookMouseMove;
-        }
-
-        private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
-        {
-            //DO SOMETHING ON KEY PRESS
         }
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
@@ -53,15 +42,6 @@ namespace SSA
 
         }
 
-        public void Unsubscribe()
-        {
-            //remove event handlers
-            m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
-            m_GlobalHook.KeyPress -= GlobalHookKeyPress;
-
-            //It is recommeneded to dispose it
-            m_GlobalHook.Dispose();
-        }
 
     }
 }
