@@ -7,10 +7,7 @@ namespace SSA
     class InputManager
     {
 
-        private IKeyboardMouseEvents m_GlobalHook;
-        private int initialXMouseLocation;
-        private int initialYMouseLocation;
-        private bool isLocationSet;
+        
 
         public InputManager()
         {
@@ -22,11 +19,7 @@ namespace SSA
 
         public void Subscribe()
         {
-            m_GlobalHook = Hook.GlobalEvents();
-            //create event handlers
-            m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
-            m_GlobalHook.KeyPress += GlobalHookKeyPress;
-            m_GlobalHook.MouseMoveExt += GlobalHookMouseMove;
+            
         }
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
@@ -34,24 +27,7 @@ namespace SSA
             //DO SOMETHING ON KEY PRESS
         }
 
-        private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
-        {
-            //DO SOMETHING ON MOUSE CLICK
-        }
-
-        private void GlobalHookMouseMove(object sender, MouseEventExtArgs e)
-        {
-            //set initial mouse location
-            initialXMouseLocation = isLocationSet ? initialXMouseLocation : e.X;
-            initialYMouseLocation = isLocationSet ? initialYMouseLocation : e.Y;
-            isLocationSet = true;
-
-            if (e.X > (initialXMouseLocation + 300) || e.Y > (initialYMouseLocation + 300))
-            {
-                //DO SOMETHING ON MOUSE MOVEMENT
-            }
-
-        }
+        
 
         public void Unsubscribe()
         {

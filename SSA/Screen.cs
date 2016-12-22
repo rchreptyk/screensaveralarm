@@ -4,12 +4,12 @@ using Pranas;
 
 namespace SSA
 {
-    class ScreenManager
+    class Screen
     {
 
         private Image mainScreenImage;
 
-        public ScreenManager()
+        public Screen()
         {
             mainScreenImage = null;
         }

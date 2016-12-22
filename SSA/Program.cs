@@ -15,7 +15,7 @@ namespace SSA
             //TESTING PURPOSES//
             InputManager im = new InputManager();
             im.Subscribe();
-            ScreenManager sm = new ScreenManager();
+            Screen sm = new Screen();
             Form form = new Form();
             form.BackgroundImage = sm.getScreenshot();
             form.Size = new Size(500, 500);
