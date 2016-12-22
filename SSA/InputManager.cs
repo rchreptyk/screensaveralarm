@@ -46,9 +46,9 @@ namespace SSA
             initialYMouseLocation = isLocationSet ? initialYMouseLocation : e.Y;
             isLocationSet = true;
 
-            if (e.X == (initialXMouseLocation + 300) || e.Y == (initialYMouseLocation + 300))
+            if (e.X > (initialXMouseLocation + 300) || e.Y > (initialYMouseLocation + 300))
             {
-                //DO SOMETHING WHEN MOUSE MOVES
+                //DO SOMETHING ON MOUSE MOVEMENT
             }
 
         }
