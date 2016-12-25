@@ -9,37 +9,44 @@ namespace SSA
 {
     class Mouse
     {
-        public event EventHandler MouseMoved;
         private IKeyboardMouseEvents m_GlobalHook;
+        public delegate void MouseMovedEventHandler();
+        public event MouseMovedEventHandler MouseMoved;
+
         private int initialXMouseLocation;
         private int initialYMouseLocation;
         private bool isLocationSet;
 
         public Mouse()
         {
+            //initialize variables
+            initialXMouseLocation = 0;
+            initialYMouseLocation = 0;
+            isLocationSet = false;
+
             m_GlobalHook = Hook.GlobalEvents();
-            //create event handlers
-            m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
-            m_GlobalHook.MouseMoveExt += GlobalHookMouseMove;
         }
 
-        private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
+        public void Subscribe()
         {
-            //DO SOMETHING ON MOUSE CLICK
+            m_GlobalHook.MouseMoveExt += M_GlobalHook_MouseMoveExt;
         }
 
-        private void GlobalHookMouseMove(object sender, MouseEventExtArgs e)
+        private void M_GlobalHook_MouseMoveExt(object sender, MouseEventExtArgs e)
         {
-            //set initial mouse location
+            //set initial x and y coordinates
             initialXMouseLocation = isLocationSet ? initialXMouseLocation : e.X;
             initialYMouseLocation = isLocationSet ? initialYMouseLocation : e.Y;
             isLocationSet = true;
 
-            if (e.X > (initialXMouseLocation + 300) || e.Y > (initialYMouseLocation + 300))
-            {
-                //DO SOMETHING ON MOUSE MOVEMENT
-            }
+            //check if mouse moved a significant distance, if it did, trigger event
+            if (initialXMouseLocation > e.X + 200 || initialYMouseLocation > e.Y + 200 || initialXMouseLocation < e.X - 200 || initialYMouseLocation < e.Y - 200)
+                OnMouseMoved();
+        }
 
+        protected virtual void OnMouseMoved()
+        {
+            MouseMoved?.Invoke();
         }
 
 
