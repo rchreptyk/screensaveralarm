@@ -7,17 +7,21 @@ using System.Threading.Tasks;
 
 namespace SSA
 {
-    class Mouse
+    class MouseAndKeyboard
     {
         private IKeyboardMouseEvents m_GlobalHook;
         public delegate void MouseMovedEventHandler();
+        public delegate void KeyPressedEventHandler();
+        public delegate void MouseClickedEventHandler();
         public event MouseMovedEventHandler MouseMoved;
+        public event KeyPressedEventHandler KeyPressed;
+        public event MouseClickedEventHandler MouseClicked;
 
         private int initialXMouseLocation;
         private int initialYMouseLocation;
         private bool isLocationSet;
 
-        public Mouse()
+        public MouseAndKeyboard()
         {
             //initialize variables
             initialXMouseLocation = 0;
@@ -30,6 +34,18 @@ namespace SSA
         public void Subscribe()
         {
             m_GlobalHook.MouseMoveExt += M_GlobalHook_MouseMoveExt;
+            m_GlobalHook.MouseClick += M_GlobalHook_MouseClick;
+            m_GlobalHook.KeyPress += M_GlobalHook_KeyPress;
+        }
+
+        private void M_GlobalHook_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            OnMouseClicked();
+        }
+
+        private void M_GlobalHook_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        {
+            OnKeyPressed();
         }
 
         private void M_GlobalHook_MouseMoveExt(object sender, MouseEventExtArgs e)
@@ -44,10 +60,20 @@ namespace SSA
                 OnMouseMoved();
         }
 
+        protected virtual void OnKeyPressed()
+        {
+            KeyPressed?.Invoke();
+        }
+
         protected virtual void OnMouseMoved()
         {
             MouseMoved?.Invoke();
         }
+        protected virtual void OnMouseClicked()
+        {
+            MouseClicked?.Invoke();
+        }
+
 
 
     }
