@@ -8,18 +8,20 @@ namespace SSA
     {
 
         private Image mainScreenImage;
+        private ScreenShot screenshot;
 
         public Screen()
         {
             mainScreenImage = null;
+            screenshot = new ScreenShot();
         }
 
-        public Image getScreenshot()
+        public Image GetScreenshot()
         {
             try
             {
                 //take screenshot and replace main screen image
-                mainScreenImage = ScreenshotCapture.TakeScreenshot();
+                mainScreenImage = screenshot.CaptureMainScreen();
                 //return image
                 return mainScreenImage;
             }
