@@ -12,14 +12,9 @@ namespace SSA
     {
         static void Main(string[] args)
         {
-            //TESTING PURPOSES//
-            InputManager im = new InputManager();
-            im.Subscribe();
-            Screen sm = new Screen();
-            Form form = new Form();
-            form.BackgroundImage = sm.getScreenshot();
-            form.Size = new Size(500, 500);
-            form.ShowDialog();
+
+            Mouse mousehandler = new Mouse();
+            mousehandler.MouseMoved += mousehandler.handleMouseMoved;
 
         }
     }
