@@ -38,15 +38,15 @@ namespace SSA
         private void PlaySound(Player player)
         {
             player.Load();
-            player.Play();
+            Thread t = new Thread(new ThreadStart(player.Play));
+            t.Start();
         }
 
         public void PlayAllAlarms()
         {
             foreach (Player player in playerList)
             {
-                Thread t = new Thread(new ThreadStart(() => PlaySound(player)));
-                t.Start();
+                PlaySound(player);
             }
         }
 
@@ -65,8 +65,7 @@ namespace SSA
                 if (alarm.name.Equals(name))
                 {
                     currentlySelectedSound = alarm;
-                    Thread t = new Thread(new ThreadStart(() => PlaySound(alarm)));
-                    t.Start();
+                    PlaySound(alarm);
                 }
             }
         }
