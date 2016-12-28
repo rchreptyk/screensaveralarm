@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Media;
 
 namespace SSA
 {
-    class Program
+    class Player : SoundPlayer
     {
-        static void Main(string[] args)
+        public String name;
+
+        public Player(string name)
         {
+            this.name = name;
         }
+
     }
 }
