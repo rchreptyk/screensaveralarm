@@ -13,9 +13,11 @@ namespace SSA
         public delegate void MouseMovedEventHandler();
         public delegate void KeyPressedEventHandler();
         public delegate void MouseClickedEventHandler();
+        public delegate void DoubleMouseClickedEventHandler();
         public event MouseMovedEventHandler MouseMoved;
         public event KeyPressedEventHandler KeyPressed;
         public event MouseClickedEventHandler MouseClicked;
+        public event DoubleMouseClickedEventHandler DoubleMouseClicked;
 
         private int initialXMouseLocation;
         private int initialYMouseLocation;
@@ -35,7 +37,13 @@ namespace SSA
         {
             m_GlobalHook.MouseMoveExt += M_GlobalHook_MouseMoveExt;
             m_GlobalHook.MouseClick += M_GlobalHook_MouseClick;
+            m_GlobalHook.MouseDoubleClick += M_GlobalHook_MouseDoubleClick;
             m_GlobalHook.KeyPress += M_GlobalHook_KeyPress;
+        }
+
+        private void M_GlobalHook_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            OnDoubleMouseClicked();
         }
 
         private void M_GlobalHook_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -72,6 +80,11 @@ namespace SSA
         protected virtual void OnMouseClicked()
         {
             MouseClicked?.Invoke();
+        }
+
+        protected virtual void OnDoubleMouseClicked()
+        {
+            DoubleMouseClicked?.Invoke();
         }
 
 
