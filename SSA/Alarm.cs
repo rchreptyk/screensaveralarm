@@ -22,8 +22,7 @@ namespace SSA
 
         public void PlayLastAddedAlarm()
         {
-            playerList[playerList.Count - 1].Load();
-            playerList[playerList.Count - 1].Play();
+            PlaySound(playerList[playerList.Count - 1]);
         }
 
         public void AddAlarm(string path, string name)

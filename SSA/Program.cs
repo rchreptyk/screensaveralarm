@@ -12,6 +12,11 @@ namespace SSA
     {
         static void Main(string[] args)
         {
+
+            Tray t = new Tray();
+            Form f = new Form();
+            f.ShowDialog();
+
         }
     }
 }
