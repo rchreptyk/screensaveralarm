@@ -22,7 +22,7 @@ namespace SSA
         }
 
         //default icon to use this with: SystemIcons.Application
-        private void SetIcon(string title, Icon icon)
+        public void SetIcon(string title, Icon icon)
         {
             trayIcon.Text = title;
             trayIcon.Icon = new Icon(icon, 40, 40);
@@ -31,13 +31,13 @@ namespace SSA
             trayIcon.Visible = true;
         }
 
-        private void AddMenuItem(string title, EventHandler eventHandler)
+        public void AddMenuItem(string title, EventHandler eventHandler)
         {
             trayMenu.MenuItems.Add(title, eventHandler);
             trayIcon.ContextMenu = trayMenu;
         }
 
-        private void RemoveMenuItem(string title)
+        public void RemoveMenuItem(string title)
         {
             trayMenu.MenuItems.Remove(trayMenu.MenuItems[title]);
         }
