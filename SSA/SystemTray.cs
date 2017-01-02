@@ -39,6 +39,11 @@ namespace SSA
             trayIcon.ContextMenu = trayMenu;
         }
 
+        private void RemoveMenuItem(string title)
+        {
+            trayMenu.MenuItems.Remove(trayMenu.MenuItems[title]);
+        }
+
         private EventHandler Exited()
         {
             return new EventHandler(Exit);
