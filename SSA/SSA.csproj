@@ -37,6 +37,7 @@
       <HintPath>..\packages\MouseKeyHook.5.4.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Pranas.ScreenshotCapture, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Pranas.ScreenshotCapture.1.0.11\lib\net40\Pranas.ScreenshotCapture.dll</HintPath>
       <Private>True</Private>
@@ -78,6 +79,7 @@
     </Compile>
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenShot.cs" />
+    <Compile Include="SystemTray.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -99,7 +101,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Intruder Alert-SoundBible.com-867759995.wav" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

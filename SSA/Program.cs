@@ -10,8 +10,15 @@ namespace SSA
 {
     class Program
     {
-        static void Main(string[] args)
+         static void Main(string[] args)
         {
+            SystemTray st = new SystemTray();
+            Form f = new Form();
+            f.ShowDialog();
+
+
+
+
         }
     }
 }
