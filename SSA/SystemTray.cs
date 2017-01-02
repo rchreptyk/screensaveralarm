@@ -18,7 +18,6 @@ namespace SSA
         public SystemTray()
         {
             trayIcon = new NotifyIcon();
-            SetIcon("SSA", SystemIcons.Application);
             masterPassword = "playstation10";
         }
 
@@ -30,7 +29,6 @@ namespace SSA
             trayMenu = new ContextMenu();
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
-            AddMenuItem("Exit", Exited());
         }
 
         private void AddMenuItem(string title, EventHandler eventHandler)
