@@ -1,77 +1,104 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Media;
-using System.Threading;
+using System.Windows.Forms;
 
 namespace SSA
 {
     class Alarm
     {
-        Player currentlySelectedSound;
-        List<Player> playerList;
+        bool active = false;
+        bool triggered = false;
+        
+        ScreenShot screenshot = new ScreenShot();
 
-        public Alarm()
+        SoundPlayer player;
+        MaximumVolume maxVolume = null;
+        MouseAndKeyboard mouseAndKeyboard = new MouseAndKeyboard();
+        ImageViewer viewer = null;
+
+        Timer activateTimer = new Timer();
+
+        public Alarm(SoundPlayer player)
         {
-            currentlySelectedSound = null;
-            playerList = new List<Player>();
+            this.player = player;
+            mouseAndKeyboard.Subscribe();
+
+            activateTimer.Interval = 250;
+            activateTimer.Tick += Timer_Tick;
         }
 
-        public void PlayLastAddedAlarm()
+        public void Deactivate()
         {
+            if (!active)
+                return;
 
-            PlaySound(playerList[playerList.Count - 1]);
+            active = false;
+
+            /* Tear down */
+
+            activateTimer.Stop();
+            player.Stop();
+            viewer.Close();
+            maxVolume?.Revert();
+
+            triggered = false;
+            unsubscribe();
         }
 
-        public void AddAlarm(string path, string name)
+        public void Activate()
         {
-            Player player = new Player(name);
-            player.SoundLocation = path;
-            currentlySelectedSound = player;
-            playerList.Add(player);
+            if (active)
+                return;
 
+            /*  Setup */
+
+            var image = screenshot.CaptureMainScreen();
+            viewer = new ImageViewer(image);
+            viewer.Show();
+
+            activateTimer.Start();
+
+            active = true;
+            triggered = false;
         }
 
-        private void PlaySound(Player player)
+        private void Timer_Tick(object sender, EventArgs e)
         {
-            player.Load();
-            Thread t = new Thread(new ThreadStart(player.Play));
-            t.Start();
+            activateTimer.Stop();
+            subscribe();
         }
 
-        public void PlayAllAlarms()
+        public bool Active
         {
-            foreach (Player player in playerList)
-            {
-                PlaySound(player);
-            }
+            get { return active; }
         }
 
-        public void StopAllAlarms()
+        private void Trigger()
         {
-            foreach (Player alarm in playerList)
-            {
-                alarm.Stop();
-            }
+            if (triggered)
+                return;
+
+            triggered = true;
+
+            maxVolume = new MaximumVolume();
+            player.PlayLooping();
+            unsubscribe();
         }
 
-        public void PlayAlarm(string name)
+        private void unsubscribe()
         {
-            foreach (Player alarm in playerList)
-            {
-                if (alarm.name.Equals(name))
-                {
-                    currentlySelectedSound = alarm;
-                    PlaySound(alarm);
-                }
-            }
+            mouseAndKeyboard.KeyPressed -= Trigger;
+            mouseAndKeyboard.MouseClicked -= Trigger;
+            mouseAndKeyboard.MouseMoved -= Trigger;
+            mouseAndKeyboard.DoubleMouseClicked -= Trigger;
         }
 
-
-
-
+        private void subscribe()
+        {
+            mouseAndKeyboard.KeyPressed += Trigger;
+            mouseAndKeyboard.MouseClicked += Trigger;
+            mouseAndKeyboard.MouseMoved += Trigger;
+            mouseAndKeyboard.DoubleMouseClicked += Trigger;
+        }
     }
 }

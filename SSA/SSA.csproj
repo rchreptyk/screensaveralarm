@@ -77,8 +77,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Screen.cs" />
     <Compile Include="ScreenShot.cs" />
+    <Compile Include="SSA.cs" />
     <Compile Include="SystemTray.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +101,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Content Include="Resources\arming.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alarm.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
