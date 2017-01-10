@@ -1,6 +1,7 @@
 ﻿using Gma.System.MouseKeyHook;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -13,6 +14,7 @@ namespace SSA
     {
         Alarm alarm;
         SoundPlayer armedPlayer;
+        SystemTray systemTray;
 
         bool aPressed = false;
         bool sPressed = false;
@@ -22,9 +24,13 @@ namespace SSA
         {
             this.alarm = alarm;
             this.armedPlayer = armedPlayer;
+            systemTray = new SystemTray();
 
             Hook.GlobalEvents().KeyDown += GlobalHook_KeyDown;
             Hook.GlobalEvents().KeyUp += SSA_KeyUp;
+            systemTray.SetIcon("SSA", SystemIcons.Application);
+            systemTray.AddMenuItem("Exit", Exit);
+            systemTray.AddMenuItem("Toggle Alarm", ToggleAlarm);
         }
 
         private void SSA_KeyUp(object sender, KeyEventArgs e)
@@ -38,7 +44,7 @@ namespace SSA
             if (pressed)
             {
                 pressed = false;
-                toggleAlarm();
+                ToggleAlarm();
             } 
         }
 
@@ -58,7 +64,7 @@ namespace SSA
             }
         }
 
-        private void toggleAlarm()
+        private void ToggleAlarm()
         {
             if (alarm.Active)
             {
@@ -71,6 +77,18 @@ namespace SSA
                 Console.WriteLine("Alarm Activated");
                 alarm.Activate();
             }
+        }
+
+        private void Exit(object sender, EventArgs e)
+        {
+            if (systemTray.Authenticate())
+                Application.Exit();
+        }
+
+        private void ToggleAlarm(object sender, EventArgs e)
+        {
+            if (systemTray.Authenticate())
+                ToggleAlarm();
         }
     }
 }

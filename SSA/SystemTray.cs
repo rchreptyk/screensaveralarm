@@ -42,14 +42,17 @@ namespace SSA
             trayMenu.MenuItems.Remove(trayMenu.MenuItems[title]);
         }
 
-        private EventHandler Exited()
+        public bool Authenticate()
         {
-            return new EventHandler(Exit);
+            if (Interaction.InputBox("Password?", "PASSWORD", "").Equals(masterPassword))
+                return true;
+            else
+                return false;
         }
 
         private void Exit(object sender, EventArgs e)
         {
-            if (Interaction.InputBox("Password?", "PASSWORD", "").Equals(masterPassword))
+            
                 Application.Exit();
         }
 
