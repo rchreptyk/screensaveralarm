@@ -49,16 +49,5 @@ namespace SSA
             else
                 return false;
         }
-
-        private void Exit(object sender, EventArgs e)
-        {
-            
-                Application.Exit();
-        }
-
-
-
-
-
     }
 }
