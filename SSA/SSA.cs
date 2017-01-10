@@ -26,6 +26,7 @@ namespace SSA
             this.armedPlayer = armedPlayer;
             systemTray = new SystemTray();
 
+            systemTray.HideWindow();
             Hook.GlobalEvents().KeyDown += GlobalHook_KeyDown;
             Hook.GlobalEvents().KeyUp += SSA_KeyUp;
             systemTray.SetIcon("SSA", SystemIcons.Application);
